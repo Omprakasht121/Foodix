@@ -8,7 +8,7 @@ import FoodCard from "./FoodCard";
 import CartDrawer from "./CartDrawer";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Filter, Home, ListOrdered, LucideListOrdered, Package2, Search, ShoppingCart, User } from "lucide-react";
+import { ChevronRight, Filter, Home, Package2, Search, ShoppingCart, User } from "lucide-react";
 
 
 const LandingPage = () => {
