@@ -8,7 +8,7 @@ import FoodCard from "./FoodCard";
 import CartDrawer from "./CartDrawer";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Filter } from "lucide-react";
+import { ChevronRight, Filter, Home, ListOrdered, LucideListOrdered, Package2, Search, ShoppingCart, User } from "lucide-react";
 
 
 const LandingPage = () => {
@@ -58,12 +58,12 @@ const removeFromCart = (id: number): void => {
   return (
     <div>
       {/* FULL LANDING PAGE JSX HERE */}
-      <div className="min-h-screen bg-[#FDFDFD] text-gray-900 font-sans selection:bg-orange-100 selection:text-orange-500">
+      <div className="min-h-screen text-gray-900 font-sans selection:bg-orange-100 selection:text-orange-500">
       <Navbar cartCount={cart.length} toggleCart={() => setIsCartOpen(true)} />
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className=" container mx-auto px-4 py-8">
         {/* Hero Section */}
-        <section className="mb-12 relative overflow-hidden rounded-[3rem] bg-gray-900 text-white p-8 md:p-16">
+        <section className=" relative overflow-hidden rounded-xl bg-gray-900 text-white p-8 md:p-16">
           <div className="relative z-10 md:w-2/3">
             <motion.span 
               initial={{ opacity: 0, x: -20 }}
@@ -132,7 +132,7 @@ const removeFromCart = (id: number): void => {
         </section>
 
         {/* Menu Grid */}
-        <section className="mb-20">
+        <section className="">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-black">Popular Menu</h2>
             <div className="flex items-center gap-2 text-gray-500 text-sm font-medium cursor-pointer hover:text-gray-900">
@@ -140,7 +140,7 @@ const removeFromCart = (id: number): void => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-8">
             <AnimatePresence mode='popLayout'>
               {filteredItems.map(item => (
                 <FoodCard 
@@ -160,8 +160,50 @@ const removeFromCart = (id: number): void => {
         </section>
       </main>
 
+      {/* mobile navbar  */}
+      <nav className=" fixed flex md:hidden bottom-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-around text-xs">
+        <div className="flex flex-col items-center ">
+          <Package2 size={24}/>
+          <p>orders</p>
+        </div>
+        <div className=" flex flex-col items-center">
+          <button onClick={()=>setSearchTerm("burger")}>
+            <Search size={24} />
+          </button>
+          <p>Search</p>
+        </div>
+        <div className="flex flex-col items-center  p-1 rounded-full">
+          <Home size={28}/>
+          <p>Home</p>
+        </div>
+        <div>
+          <button 
+            onClick={() => setIsCartOpen(true)}
+            className="relative p-2 text-gray-900 hover:bg-gray-100 rounded-full transition-all group"
+          >
+            <ShoppingCart size={24} />
+            {cart.length > 0 && (
+              <motion.span 
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="absolute top-0 right-0 w-5 h-5 bg-orange-500 text-white text-[10px] flex items-center justify-center rounded-full font-bold border-2 border-white"
+              >
+                {cart.length}
+              </motion.span>
+            )}
+            <p>cart</p>
+          </button>
+        </div>
+        <div className="flex flex-col items-center">
+            <User size={24}/>
+          <p>Account</p>
+        </div>
+      </div>
+    </nav>
+
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-20">
+      <footer className="hidden md:flex bg-gray-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="space-y-6">
             <div className="flex items-center gap-2">

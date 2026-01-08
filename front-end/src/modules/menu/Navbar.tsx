@@ -9,11 +9,12 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ cartCount, toggleCart }) => {
     return(
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <nav className="hidden md:flex sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between bg-green-500">
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">
-            F
+            
+            <p>F</p>
           </div>
           <span className="text-xl font-bold text-gray-900 tracking-tight">Foodic</span>
         </div>

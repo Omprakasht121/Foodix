@@ -1,4 +1,4 @@
-import { ChevronRight } from "lucide-react";
+
 import type { Category } from "../../types";
 
 interface CategoryPillProps {
@@ -10,12 +10,13 @@ interface CategoryPillProps {
 const CategoryPill = ({
   category,
   isActive,
+
   onClick,
 }: CategoryPillProps) => {
   return (
     <button
       onClick={() => onClick(category.id)}
-      className={`flex items-center gap-2 px-5 py-2.5 rounded-full ${
+      className={`flex items-center justify-center md:gap-2 px-4 md:px-5  py-1 md:py-2.5 rounded-full ${
         isActive ? "bg-orange-500 text-white" : "bg-white text-gray-600"
       }`}
     >
