@@ -8,6 +8,8 @@ export interface MenuItem {
   id: number;
   name: string;
   category: string;
+  subCategory?: string;
+  foodType: "veg" | "nonveg";
   price: number;
   rating: number;
   reviews: number;
@@ -17,6 +19,7 @@ export interface MenuItem {
   image: string;
   popular: boolean;
 }
+
 
 export interface CartItem extends MenuItem {
   quantity: number;

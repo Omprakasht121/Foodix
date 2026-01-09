@@ -13,20 +13,48 @@ import { ChevronRight, Filter, Home, Package2, Search, ShoppingCart, User } from
 
 const LandingPage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [activeSubCategory, setActiveSubCategory] = useState<string>("all");
+
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const filteredItems = useMemo<MenuItem[]>(() => {
-    return MENU_ITEMS.filter((item) => {
-      const matchesCategory =
-        activeCategory === "all" || item.category === activeCategory;
-      const matchesSearch = item.name
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeCategory, searchTerm]);
+  const [orderMode, setOrderMode] = useState<"restaurant" | "delivery">("restaurant");
+  const [foodPreference, setFoodPreference] = useState<"veg" | "nonveg">("veg");
+
+
+ const subCategories = useMemo(() => {
+  if (activeCategory === "all") return [];
+
+  const subs = MENU_ITEMS
+    .filter(item => item.category === activeCategory && item.subCategory)
+    .map(item => item.subCategory as string);
+
+  return ["all", ...Array.from(new Set(subs))];
+}, [activeCategory]);
+
+
+
+const filteredItems = useMemo<MenuItem[]>(() => {
+  return MENU_ITEMS.filter((item) => {
+    // Category
+    const matchesCategory =
+      activeCategory === "all" || item.category === activeCategory;
+
+    // Subcategory
+    const matchesSubCategory =
+      activeSubCategory === "all" ||
+      item.subCategory === activeSubCategory;
+
+    // Veg / Non-Veg
+    const matchesFoodType =
+      foodPreference === "nonveg" || item.foodType === "veg";
+
+    return matchesCategory && matchesSubCategory && matchesFoodType;
+  });
+}, [activeCategory, activeSubCategory, foodPreference, searchTerm]);
+
+
 
   const addToCart = (item: MenuItem): void => {
   setCart((prev) => {
@@ -59,11 +87,19 @@ const removeFromCart = (id: number): void => {
     <div>
       {/* FULL LANDING PAGE JSX HERE */}
       <div className="min-h-screen text-gray-900 font-sans selection:bg-orange-100 selection:text-orange-500">
-      <Navbar cartCount={cart.length} toggleCart={() => setIsCartOpen(true)} />
+      <Navbar
+  cartCount={cart.length}
+  toggleCart={() => setIsCartOpen(true)}
+  orderMode={orderMode}
+  setOrderMode={setOrderMode}
+  foodPreference={foodPreference}
+  setFoodPreference={setFoodPreference}
+/>
+
 
       <main className=" container mx-auto px-4 py-8">
         {/* Hero Section */}
-        <section className=" relative overflow-hidden rounded-xl bg-gray-900 text-white p-8 md:p-16">
+        <section className=" hidden  relative overflow-hidden rounded-xl bg-gray-900 text-white p-8 md:p-16">
           <div className="relative z-10 md:w-2/3">
             <motion.span 
               initial={{ opacity: 0, x: -20 }}
@@ -130,6 +166,27 @@ const removeFromCart = (id: number): void => {
             ))}
           </div>
         </section>
+
+        {/* subcatagories  */}
+        {activeCategory !== "all" && subCategories.length > 1 && (
+        <div className="flex items-center gap-3 overflow-x-auto pb-4 scrollbar-hide no-scrollbar mb-8">
+          {subCategories.map((sub) => (
+            <button
+              key={sub}
+              onClick={() => setActiveSubCategory(sub)}
+              className={`px-4 py-1 md:py-2 rounded-full text-sm font-medium whitespace-nowrap ${
+                activeSubCategory === sub
+                  ? "bg-orange-500 text-white"
+                  : "bg-gray-100 text-gray-700"
+              }`}
+            >
+              {sub === "all" ? "All" : sub}
+            </button>
+          ))}
+        </div>
+      )}
+
+
 
         {/* Menu Grid */}
         <section className="">
