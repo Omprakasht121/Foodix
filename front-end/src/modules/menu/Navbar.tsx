@@ -16,8 +16,8 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrderMode, foodPreference, setFoodPreference}) => {
     return(
-      <nav className="hidden md:flex sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between bg-green-500">
+      <nav className=" sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between ">
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">
             
@@ -25,18 +25,29 @@ const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrd
           </div>
           <span className="text-xl font-bold text-gray-900 tracking-tight">Foodic</span>
         </div>
+
+        {/* table number  */}
+      {orderMode == "restaurant" &&(
+        <div className="">
+          <h2 className="text-lg font-bold ">Table</h2>
+          
+        </div>
+      )
+
+      }
   
         <div className="hidden md:flex items-center bg-gray-100 rounded-full px-4 py-2 w-96">
           <Search size={18} className="text-gray-400" />
-          <input 
-            type="text" 
-            placeholder="Search your favorite food..." 
+          <input
+            type="text"
+            placeholder="Search your favorite food..."
             className="bg-transparent border-none outline-none px-3 w-full text-sm"
           />
         </div>
   
         <div className="flex items-center gap-4">
-          {/* Order Mode Toggle */}
+          <div className="flex">
+            {/* Order Mode Toggle */}
           <div className="flex rounded-full border overflow-hidden text-sm">
             <button
               onClick={() => setOrderMode("restaurant")}
@@ -46,7 +57,8 @@ const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrd
                   : "bg-white text-gray-600"
               }`}
             >
-              Restaurant
+              <span className="hidden md:inline">Restaurant</span>
+              <span className="md:hidden">R</span>
             </button>
             <button
               onClick={() => setOrderMode("delivery")}
@@ -56,7 +68,8 @@ const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrd
                   : "bg-white text-gray-600"
               }`}
             >
-              Delivery
+            <span className="hidden md:inline">Delivery</span>
+            <span className="md:hidden">D</span>
             </button>
           </div>
 
@@ -84,12 +97,13 @@ const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrd
             </button>
           </div>
 
-          <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors md:hidden">
+          </div>
+          <button className="hidden md:flex p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors md:hidden">
             <Search size={20} />
           </button>
           <button 
             onClick={toggleCart}
-            className="relative p-2 text-gray-700 hover:bg-gray-100 rounded-full transition-all group"
+            className="hidden md:flex relative p-2 text-gray-700 hover:bg-gray-100 rounded-full transition-all group"
           >
             <ShoppingCart size={24} />
             {cartCount > 0 && (
@@ -102,7 +116,7 @@ const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrd
               </motion.span>
             )}
           </button>
-          <div className="w-9 h-9 bg-gray-200 rounded-full overflow-hidden border-2 border-orange-100 cursor-pointer">
+          <div className="w-9 h-9 hidden md:flex bg-gray-200 rounded-full overflow-hidden border-2 border-orange-100 cursor-pointer">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" />
           </div>
         </div>

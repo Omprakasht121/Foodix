@@ -9,6 +9,7 @@ import CartDrawer from "./CartDrawer";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Filter, Home, Package2, Search, ShoppingCart, User } from "lucide-react";
+import { div } from "framer-motion/client";
 
 
 const LandingPage = () => {
@@ -88,13 +89,13 @@ const removeFromCart = (id: number): void => {
       {/* FULL LANDING PAGE JSX HERE */}
       <div className="min-h-screen text-gray-900 font-sans selection:bg-orange-100 selection:text-orange-500">
       <Navbar
-  cartCount={cart.length}
-  toggleCart={() => setIsCartOpen(true)}
-  orderMode={orderMode}
-  setOrderMode={setOrderMode}
-  foodPreference={foodPreference}
-  setFoodPreference={setFoodPreference}
-/>
+        cartCount={cart.length}
+        toggleCart={() => setIsCartOpen(true)}
+        orderMode={orderMode}
+        setOrderMode={setOrderMode}
+        foodPreference={foodPreference}
+        setFoodPreference={setFoodPreference}
+      />
 
 
       <main className=" container mx-auto px-4 py-8">
@@ -147,7 +148,7 @@ const removeFromCart = (id: number): void => {
         </section>
 
         {/* Categories Section */}
-        <section className="mb-12">
+        <section className="">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-black">Categories</h2>
             <button className="text-orange-500 font-bold flex items-center gap-1 hover:gap-2 transition-all">
@@ -169,7 +170,7 @@ const removeFromCart = (id: number): void => {
 
         {/* subcatagories  */}
         {activeCategory !== "all" && subCategories.length > 1 && (
-        <div className="flex items-center gap-3 overflow-x-auto pb-4 scrollbar-hide no-scrollbar mb-8">
+        <div className="flex items-center gap-3 overflow-x-auto pb-4 scrollbar-hide no-scrollbar ">
           {subCategories.map((sub) => (
             <button
               key={sub}
@@ -189,7 +190,7 @@ const removeFromCart = (id: number): void => {
 
 
         {/* Menu Grid */}
-        <section className="">
+        <section className="mb-16">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-black">Popular Menu</h2>
             <div className="flex items-center gap-2 text-gray-500 text-sm font-medium cursor-pointer hover:text-gray-900">
@@ -218,7 +219,7 @@ const removeFromCart = (id: number): void => {
       </main>
 
       {/* mobile navbar  */}
-      <nav className=" fixed flex md:hidden bottom-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <nav className=" fixed flex md:hidden bottom-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 ">
       <div className="container mx-auto px-4 h-16 flex items-center justify-around text-xs">
         <div className="flex flex-col items-center ">
           <Package2 size={24}/>
