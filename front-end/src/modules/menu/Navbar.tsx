@@ -28,8 +28,11 @@ const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrd
 
         {/* table number  */}
       {orderMode == "restaurant" &&(
-        <div className="">
+        <div className="flex">
           <h2 className="text-lg font-bold ">Table</h2>
+          <select name="" id="">
+            <option value=""></option>
+          </select>
           
         </div>
       )
@@ -46,56 +49,62 @@ const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrd
         </div>
   
         <div className="flex items-center gap-4">
-          <div className="flex">
-            {/* Order Mode Toggle */}
-          <div className="flex rounded-full border overflow-hidden text-sm">
-            <button
-              onClick={() => setOrderMode("restaurant")}
-              className={`px-3 py-1 ${
+          <div className="flex gap-2 justify-center items-center">
+          {/* Restaurant / Delivery Toggle */}
+          <div
+            className="relative w-20 md:w-28 h-8 md:h-10 text-xs md:text-lg cursor-pointer [perspective:1000px]"
+            onClick={() =>
+              setOrderMode(orderMode === "restaurant" ? "delivery" : "restaurant")
+            }
+          >
+            <div
+              className={`relative w-full h-full rounded-full transition-transform duration-500 [transform-style:preserve-3d] ${
                 orderMode === "restaurant"
-                  ? "bg-orange-500 text-white"
-                  : "bg-white text-gray-600"
+                  ? "[transform:rotateX(0deg)]"
+                  : "[transform:rotateX(180deg)]"
               }`}
             >
-              <span className="hidden md:inline">Restaurant</span>
-              <span className="md:hidden">R</span>
-            </button>
-            <button
-              onClick={() => setOrderMode("delivery")}
-              className={`px-3 py-1 ${
-                orderMode === "delivery"
-                  ? "bg-orange-500 text-white"
-                  : "bg-white text-gray-600"
-              }`}
-            >
-            <span className="hidden md:inline">Delivery</span>
-            <span className="md:hidden">D</span>
-            </button>
+              {/* FRONT: Restaurant */}
+              <div className="absolute inset-0 bg-orange-500 text-white flex items-center justify-center rounded-full [backface-visibility:hidden]">
+                RESTAURANT
+              </div>
+
+              {/* BACK: Delivery */}
+              <div className="absolute inset-0 bg-blue-500 text-white flex items-center justify-center rounded-full [transform:rotateX(180deg)] [backface-visibility:hidden]">
+                DELIVERY
+              </div>
+            </div>
           </div>
 
-          {/* Veg / Non-Veg Toggle */}
-          <div className="flex rounded-full border overflow-hidden text-sm ml-3">
-            <button
-              onClick={() => setFoodPreference("veg")}
-              className={`px-3 py-1 ${
+
+          {/* Veg/Non-Veg Toggle */}
+          <div
+            className="relative w-20 md:w-28 h-8 md:h-10 text-xs md:text-lg cursor-pointer [perspective:1000px]"
+            onClick={() =>
+              setFoodPreference(foodPreference === "veg" ? "nonveg" : "veg")
+            }
+          >
+            <div
+              className={`relative w-full h-full rounded-full transition-transform duration-500 [transform-style:preserve-3d] ${
                 foodPreference === "veg"
-                  ? "bg-green-600 text-white"
-                  : "bg-white text-gray-600"
+                  ? "[transform:rotateX(0deg)]"
+                  : "[transform:rotateX(180deg)]"
               }`}
             >
-              Veg
-            </button>
-            <button
-              onClick={() => setFoodPreference("nonveg")}
-              className={`px-3 py-1 ${
-                foodPreference === "nonveg"
-                  ? "bg-red-600 text-white"
-                  : "bg-white text-gray-600"
-              }`}
-            >
-              Non-Veg
-            </button>
+              {/* FRONT: Veg */}
+              <div className="absolute inset-0 bg-green-600 text-white flex items-center justify-center rounded-full [backface-visibility:hidden]">
+                VEG
+              </div>
+
+              {/* BACK: Non-Veg */}
+              <div className="absolute inset-0 bg-red-600 text-white flex items-center justify-center rounded-full [transform:rotateX(180deg)] [backface-visibility:hidden]">
+                NON-VEG
+              </div>
+            </div>
           </div>
+
+
+          
 
           </div>
           <button className="hidden md:flex p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors md:hidden">
