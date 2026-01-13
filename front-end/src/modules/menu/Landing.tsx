@@ -22,6 +22,7 @@ const LandingPage = () => {
   const [orderMode, setOrderMode] = useState<"restaurant" | "delivery">("restaurant");
   const [foodPreference, setFoodPreference] = useState<"veg" | "nonveg">("veg");
 
+  const[mobileSearch, setMobileSearch] = useState<boolean>(false);
 
  const subCategories = useMemo(() => {
   if (activeCategory === "all") return [];
@@ -90,6 +91,8 @@ const removeFromCart = (id: number): void => {
       <Navbar
         cartCount={cart.length}
         toggleCart={() => setIsCartOpen(true)}
+        mobileSearch = {mobileSearch}
+        
         orderMode={orderMode}
         setOrderMode={setOrderMode}
         foodPreference={foodPreference}
@@ -148,7 +151,7 @@ const removeFromCart = (id: number): void => {
 
         {/* Categories Section */}
         <section className="">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-4 md:mb-8">
             <h2 className="text-2xl font-black">Categories</h2>
             <button className="text-orange-500 font-bold flex items-center gap-1 hover:gap-2 transition-all">
               View All <ChevronRight size={18} />
@@ -190,7 +193,7 @@ const removeFromCart = (id: number): void => {
 
         {/* Menu Grid */}
         <section className="mb-16">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-8 mt-4">
             <h2 className="text-2xl font-black">Popular Menu</h2>
             <div className="flex items-center gap-2 text-gray-500 text-sm font-medium cursor-pointer hover:text-gray-900">
               <Filter size={18} /> Sort By
@@ -219,20 +222,21 @@ const removeFromCart = (id: number): void => {
 
       {/* mobile navbar  */}
       <nav className=" fixed flex md:hidden bottom-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 ">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-around text-xs">
+      <div className="container mx-auto px-4 my-2 h-16 flex items-center justify-around text-[10px]">
         <div className="flex flex-col items-center ">
           <Package2 size={24}/>
           <p>orders</p>
         </div>
-        <div className=" flex flex-col items-center">
+        <div onClick={() => setMobileSearch(prev => !prev)} 
+        className=" flex flex-col items-center">
           <button onClick={()=>setSearchTerm("burger")}>
             <Search size={24} />
           </button>
           <p>Search</p>
         </div>
-        <div className="flex flex-col items-center  p-1 rounded-full">
-          <Home size={28}/>
-          <p>Home</p>
+        <div className="flex flex-col items-center  p-1 rounded-full border border-gray-500 w-14 h-14  p-1 justify-center bg-orange-600  shadow-[inset_4px_4px_6px_rgba(50,0,0,0.4),_inset_-4px_-4px_8px_rgba(255,255,255,0.05),_2px_4px_6px_rgba(0,0,0,0.5)]">
+          <Home size={24}/>
+          <p >Home</p>
         </div>
         <div>
           <button 
@@ -244,7 +248,7 @@ const removeFromCart = (id: number): void => {
               <motion.span 
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                className="absolute top-0 right-0 w-5 h-5 bg-orange-500 text-white text-[10px] flex items-center justify-center rounded-full font-bold border-2 border-white"
+                className="absolute top-0 right-0 w-5 h-5 bg-orange-500 text-white text-[10px] flex items-center justify-center rounded-full font-bold border-2 border-white "
               >
                 {cart.length}
               </motion.span>

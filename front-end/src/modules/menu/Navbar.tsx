@@ -1,10 +1,13 @@
-import { Search, ShoppingCart } from "lucide-react";
+import { Search, ShoppingCart, X } from "lucide-react";
 // import { motion } from "framer-motion" 
 import {motion} from "framer-motion"
 
 interface NavbarProps {
   cartCount: number;
   toggleCart: () => void;
+
+  mobileSearch : boolean;
+  
 
   orderMode: "restaurant" | "delivery";
   setOrderMode: (mode: "restaurant" | "delivery") => void;
@@ -14,7 +17,8 @@ interface NavbarProps {
 }
 
 
-const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrderMode, foodPreference, setFoodPreference}) => {
+const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart,mobileSearch, orderMode, setOrderMode, foodPreference, setFoodPreference}) => {
+  console.log(mobileSearch)
     return(
       <nav className=" sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between ">
@@ -23,36 +27,34 @@ const Navbar: React.FC<NavbarProps> = ({cartCount, toggleCart, orderMode, setOrd
             
             <p>F</p>
           </div>
-          <span className="text-xl font-bold text-gray-900 tracking-tight">Foodic</span>
+          <span className="hidden md:flex text-xl font-bold text-gray-900 tracking-tight">Foodic</span>
         </div>
 
         {/* table number  */}
       {orderMode == "restaurant" &&(
         <div className="flex">
-          <h2 className="text-lg font-bold ">Table</h2>
-          <select name="" id="">
-            <option value=""></option>
-          </select>
+          <h2 className="text-sm font-bold ">Table No.</h2>
           
         </div>
       )
 
       }
   
-        <div className="hidden md:flex items-center bg-gray-100 rounded-full px-4 py-2 w-96">
+        <div className={` md:flex items-center bg-gray-100 rounded-full px-4 py-2 w-96 ${mobileSearch? "flex":"hidden"}`}>
           <Search size={18} className="text-gray-400" />
           <input
             type="text"
             placeholder="Search your favorite food..."
             className="bg-transparent border-none outline-none px-3 w-full text-sm"
           />
+          <X />
         </div>
   
         <div className="flex items-center gap-4">
-          <div className="flex gap-2 justify-center items-center">
+          <div className={` gap-2 justify-center items-center ${mobileSearch?"hidden":"flex"}`}>
           {/* Restaurant / Delivery Toggle */}
           <div
-            className="relative w-20 md:w-28 h-8 md:h-10 text-xs md:text-lg cursor-pointer [perspective:1000px]"
+            className="relative w-24 md:w-28 h-8 md:h-10 text-xs md:text-lg cursor-pointer [perspective:1000px]"
             onClick={() =>
               setOrderMode(orderMode === "restaurant" ? "delivery" : "restaurant")
             }
