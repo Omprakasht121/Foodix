@@ -9,7 +9,6 @@ import CartDrawer from "./CartDrawer";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Filter, Home, Package2, Search, ShoppingCart, User } from "lucide-react";
-import { div } from "framer-motion/client";
 
 
 const LandingPage = () => {
